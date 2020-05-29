@@ -9,3 +9,6 @@ Add dbcontext class with db set properties
 Add the connectionstring to the startup class
 Set connection string in appsetting.json
 Add initial migration with  dotnet ef migrations add InitialMigration
+dotnet ef database update
+
+Add data annotation and generate another migration and update database
