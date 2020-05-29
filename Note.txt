@@ -1,0 +1,11 @@
+﻿Create models folder and add model and make classes. 
+
+Add the following package 
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+Add dbcontext class with db set properties
+Add the connectionstring to the startup class
+Set connection string in appsetting.json
+Add initial migration with  dotnet ef migrations add InitialMigration
