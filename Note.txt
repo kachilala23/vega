@@ -12,3 +12,31 @@ Add initial migration with  dotnet ef migrations add InitialMigration
 dotnet ef database update
 
 Add data annotation and generate another migration and update database
+Add migration to seed the database with custom sql in the seed database then update database
+
+To reverse a database migration we make use of the last name of the last run successful migration e.g.
+dotnet ef database update AddDataAnnotation
+
+To take back to the latest migration i.e. upgrade it as the last action was down grading the db we make use of the command
+dotnet ef database update
+
+Create an empty api controller MakesController and extend ControllerBase
+Create a method GetMakes with an IEnumerable ruturn type of make.
+Create a contructor and inject the dbcontext as make the dbcontext a private readonly field.
+
+Running the application we have the following error
+
+A possible object cycle was detected which is not supported. This can either be due to a cycle or if the object depth 
+is larger than the maximum allowed depth of 32.
+
+We need to make use of DTOs but here we call it Resources. Hence we create a resource folder in the controller and 
+create the different resource we want to expose in the resource folder removing the navigation property
+Next we make us of a toool called automapper to map the models to the resource. This will enable us not to expose our main
+model rather we are exposing the resources.
+
+We make use of the package 
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+Go to startup class and add 
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+

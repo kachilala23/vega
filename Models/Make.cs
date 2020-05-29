@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Vega.Models
@@ -7,7 +8,7 @@ namespace Vega.Models
     {
         public Make()
         {
-            Models = new List<Model>();
+            Models = new Collection<Model>();
         }
 
         public int Id { get; set; }
