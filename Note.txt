@@ -40,3 +40,36 @@ dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
 Go to startup class and add 
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+Next we inject it in our constructor of the makescontroller by using the IMapper interface
+Next we make use of the _mapper to map the source type to our target type 
+		
+		[HttpGet]
+        //[Route("/api/makes")]
+        public async Task<IEnumerable<MakeResource>> GetMakes()
+        {
+           var makes = await _context.Makes.Include(m => m.Models).ToListAsync();
+           return _mapper.Map<List<Make>, List<MakeResource>>(makes);
+        }
+
+For automapper to know how to map the properties of one class to another. We create a mapping profile.
+So we will create another folder called mapping and create a class called mappingprofile which extends profile 
+we need to import automapper namespace
+
+Automapper will check if the properties in the source correspond to the one in the target. If they do it will help 
+us do the mapping else we will have to provide additional configuration.
+
+public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Make, MakeResource>();
+            CreateMap<Model, ModelResource>();
+        }
+    }
+
+
+
+
+
+
+

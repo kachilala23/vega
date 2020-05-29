@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Vega.Controllers.Resources;
 using Vega.Models;
 using Vega.Persistence;
 
@@ -15,7 +16,7 @@ namespace Vega.Controllers
         private readonly VegaDbContext _context;
         private readonly IMapper _mapper;
 
-        public MakesController(VegaDbContext context, IMapper maper)
+        public MakesController(VegaDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -23,9 +24,10 @@ namespace Vega.Controllers
 
         [HttpGet]
         //[Route("/api/makes")]
-        public async Task<IEnumerable<Make>> GetMakes()
+        public async Task<IEnumerable<MakeResource>> GetMakes()
         {
-            return await _context.Makes.Include(m => m.Models).ToListAsync();
+           var makes = await _context.Makes.Include(m => m.Models).ToListAsync();
+           return _mapper.Map<List<Make>, List<MakeResource>>(makes);
         }
     }
 }
